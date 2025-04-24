@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.30)
+project(untitled C)
+
+set(CMAKE_C_STANDARD 11)
+
+# Ustaw ścieżki do libcurl (zmień jeśli używasz innego katalogu)
+include_directories("C:/Users/dawid/CLionProjects/weather_v2/curl/include")
+link_directories("C:/Users/dawid/CLionProjects/weather_v2/curl/lib")
+
+include_directories("C:/Users/dawid/Downloads/paho.mqtt.c-master/paho.mqtt.c-master/src")
+link_directories("C:/Users/dawid/Downloads/paho.mqtt.c-master/paho.mqtt.c-master/cmake-build-debug/src")
+
+
+# Tworzenie pliku wykonywalnego
+add_executable(weather_v2 main.c
+        weather_module.c
+        weather_module.h
+        MQTT_module.h
+        MQTT_module.c
+)
+
+# Podłączanie biblioteki curl
+target_link_libraries(weather_v2 curl)
+target_link_libraries(weather_v2 libpaho-mqtt3c)  # Zmieniaj nazwę na odpowiednią

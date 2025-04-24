@@ -1,0 +1,3 @@
+C:/Users/dawid/CLionProjects/weather_v2/cmake-build-debug/CMakeFiles/weather_v2.dir
+C:/Users/dawid/CLionProjects/weather_v2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/dawid/CLionProjects/weather_v2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

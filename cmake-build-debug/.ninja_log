@@ -1,0 +1,25 @@
+# ninja log v6
+112	205	7672138591374919	untitled.exe	946e6f68535bbe82
+142	250	7672177094829243	weather_v1.exe	86b5209ad508cf17
+19	379	7672177369017677	build.ninja	2b4f129a7b646295
+4	140	7672177093456094	CMakeFiles/weather_v1.dir/main.c.obj	5d4f96b9de4fe7ff
+16	795	7672175408119364	CMakeFiles/weather_v1.dir/MQTT_module.c.obj	19f28a9e5276a321
+9	754	7672175408048075	CMakeFiles/weather_v1.dir/weather_module.c.obj	ee37c8bafc9b813b
+14	96	7672177421254376	CMakeFiles/weather_v2.dir/MQTT_module.c.obj	b38c6419c906976e
+8	115	7672177421193432	CMakeFiles/weather_v2.dir/weather_module.c.obj	fc521707a618a7c4
+2	122	7672177421132083	CMakeFiles/weather_v2.dir/main.c.obj	bd4fc64edf363b90
+122	221	7672177422331522	weather_v2.exe	71eaf5b38b1f7811
+4	152	7672183333458142	CMakeFiles/weather_v2.dir/main.c.obj	bd4fc64edf363b90
+152	280	7672183334951295	weather_v2.exe	71eaf5b38b1f7811
+3	94	7672186441450464	CMakeFiles/weather_v2.dir/main.c.obj	bd4fc64edf363b90
+94	221	7672186442361022	weather_v2.exe	71eaf5b38b1f7811
+5	125	7672187879134994	CMakeFiles/weather_v2.dir/main.c.obj	bd4fc64edf363b90
+127	272	7672187880353183	weather_v2.exe	71eaf5b38b1f7811
+3	105	7672188797850157	CMakeFiles/weather_v2.dir/main.c.obj	bd4fc64edf363b90
+106	248	7672188798862283	weather_v2.exe	71eaf5b38b1f7811
+3	147	7672190019097393	CMakeFiles/weather_v2.dir/main.c.obj	bd4fc64edf363b90
+148	277	7672190020539846	weather_v2.exe	71eaf5b38b1f7811
+3	139	7672192399827764	CMakeFiles/weather_v2.dir/main.c.obj	bd4fc64edf363b90
+139	234	7672192401189041	weather_v2.exe	71eaf5b38b1f7811
+3	145	7672197083942701	CMakeFiles/weather_v2.dir/main.c.obj	bd4fc64edf363b90
+147	260	7672197085378852	weather_v2.exe	71eaf5b38b1f7811
