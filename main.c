@@ -23,6 +23,7 @@ void *fetch_weather_data(void *arg) {
     int woj_id = args->woj_id;
     int num_miast = 0;
     char *final_string = args->final_string;
+    strcpy(final_string, "{");
     while ((dane[woj_id].miasta[num_miast] != NULL) && (num_miast < 5)) {
         get_weather(dane[woj_id].lat[num_miast], dane[woj_id].lon[num_miast], dane[woj_id].nazwa_wojewodztwa + 6);
         const char *name_tab[] = {"temp", "speed", "all"};
