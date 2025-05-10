@@ -17,6 +17,8 @@ add_executable(weather_v2 main.c
         weather_module.h
         MQTT_module.h
         MQTT_module.c
+        time_synchronization.c
+        time_synchronization.h
 )
 
 # Podłączanie biblioteki curl

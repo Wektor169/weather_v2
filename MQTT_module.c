@@ -2,8 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <MQTTClient.h>
+#include <string.h>
 
 void sendMqttMessage(const char *message, const char *topic) {
+    if (message == NULL || topic == NULL) {
+        fprintf(stderr, "Error: message or topic is NULL.\n");
+        return;
+    }
     MQTTClient client;
     MQTTClient_connectOptions options = MQTTClient_connectOptions_initializer;
     MQTTClient_SSLOptions sslOptions = MQTTClient_SSLOptions_initializer;

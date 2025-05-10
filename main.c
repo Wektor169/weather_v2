@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "weather_module.h"
-#include "MQTT_module.h"
 #include <pthread.h>
 #include <semaphore.h>
-#include <unistd.h>
-//#include <sys/time.h>
+#include "weather_module.h"
+#include "MQTT_module.h"
+#include "time_synchronization.h"
 
 #define NUM_WOJEWODZTWA 16
 #define NUM_THREADS 16
@@ -29,6 +28,10 @@ void *fetch_weather_data(void *arg) {
         const char *name_tab[] = {"temp", "speed", "all"};
         const char *name_tab_pl[] = {"Temperatura", "Predkosc wiatru", "Zachmurzenie"};
         const char **result = get_data(name_tab, 3, dane[woj_id].nazwa_wojewodztwa + 6);
+        if (result == NULL) {
+            fprintf(stderr, "Błąd: get_data zwróciło NULL dla województwa %s\n", dane[woj_id].nazwa_wojewodztwa);
+            continue;
+        }
         if (result) {
             char city_string[256];
             snprintf(city_string, sizeof(city_string),
@@ -68,10 +71,9 @@ void *send_weather_data(void *arg) {
     return NULL;
 }
 
+
+
 int main() {
-    /* //Mierzenie czasu
-    struct timeval start, end;
-    gettimeofday(&start, NULL); */
 
     pthread_t fetch_threads[NUM_THREADS];  // Wątki do pobierania danych
     pthread_t send_threads[NUM_THREADS];   // Wątki do wysyłania danych
@@ -81,15 +83,25 @@ int main() {
 
     // Inicjalizacja semafora dla sekcji krytycznej
     sem_init(&semaphore, 0, 1);  // Tylko jeden wątek wysyła dane w tym samym czasie
+    if (sem_init(&semaphore, 0, 1) != 0) {
+        perror("Error initializing global semaphore");
+        exit(1);
+    }
 
     int liczba_iteracji = 0;
 
-    while (liczba_iteracji<5){
+    while (liczba_iteracji<10){
+        sleep_until_next_min_interval(1);
+        print_date();
         for (int i = 0; i < NUM_THREADS; i++) {
             args[i].woj_id = i;
             args[i].final_string[0] = '\0';  // Inicjalizujemy pusty ciąg
             args[i].semaphore = &semaphore;  // Używamy globalnego semafora dla sekcji krytycznej
             sem_init(&send_semaphore[i], 0, 0);  // Inicjalizujemy semafor dla każdego wątku
+            if (sem_init(&semaphore, 0, 1) != 0) {
+                perror("Błąd podczas inicjalizacji semafora globalnego");
+                exit(1);
+            }
             args[i].send_semaphore = &send_semaphore[i];
 
             // Tworzymy wątki odpowiedzialne za pobieranie danych
@@ -114,8 +126,8 @@ int main() {
         for (int i = 0; i < NUM_THREADS; i++) {
             pthread_join(send_threads[i], NULL);
         }
+        printf(" The program successfully received and sent.\n");
         liczba_iteracji = liczba_iteracji + 1;
-        sleep(30);
     }
 
     // Niszczenie semaforów
@@ -123,14 +135,6 @@ int main() {
     for (int i = 0; i < NUM_THREADS; i++) {
         sem_destroy(&send_semaphore[i]);
     }
-
-
-    // Obliczenie czasu trwania
-    /* gettimeofday(&end, NULL);
-    long seconds = end.tv_sec - start.tv_sec;
-    long microseconds = end.tv_usec - start.tv_usec;
-    double elapsed_time = seconds + microseconds / 1000000.0;
-    printf("Czas trwania programu: %.6f sekund\n", elapsed_time); */
 
     return 0;
 }

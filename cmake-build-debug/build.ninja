@@ -70,6 +70,13 @@ build CMakeFiles/weather_v2.dir/MQTT_module.c.obj: C_COMPILER__weather_v2_unscan
   OBJECT_DIR = CMakeFiles\weather_v2.dir
   OBJECT_FILE_DIR = CMakeFiles\weather_v2.dir
 
+build CMakeFiles/weather_v2.dir/time_synchronization.c.obj: C_COMPILER__weather_v2_unscanned_Debug C$:/Users/dawid/CLionProjects/weather_v2/time_synchronization.c || cmake_object_order_depends_target_weather_v2
+  DEP_FILE = CMakeFiles\weather_v2.dir\time_synchronization.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dawid/CLionProjects/weather_v2/curl/include -IC:/Users/dawid/Downloads/paho.mqtt.c-master/paho.mqtt.c-master/src
+  OBJECT_DIR = CMakeFiles\weather_v2.dir
+  OBJECT_FILE_DIR = CMakeFiles\weather_v2.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target weather_v2
@@ -78,7 +85,7 @@ build CMakeFiles/weather_v2.dir/MQTT_module.c.obj: C_COMPILER__weather_v2_unscan
 #############################################
 # Link the executable weather_v2.exe
 
-build weather_v2.exe: C_EXECUTABLE_LINKER__weather_v2_Debug CMakeFiles/weather_v2.dir/main.c.obj CMakeFiles/weather_v2.dir/weather_module.c.obj CMakeFiles/weather_v2.dir/MQTT_module.c.obj
+build weather_v2.exe: C_EXECUTABLE_LINKER__weather_v2_Debug CMakeFiles/weather_v2.dir/main.c.obj CMakeFiles/weather_v2.dir/weather_module.c.obj CMakeFiles/weather_v2.dir/MQTT_module.c.obj CMakeFiles/weather_v2.dir/time_synchronization.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lcurl  -llibpaho-mqtt3c  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/dawid/CLionProjects/weather_v2/curl/lib   -LC:/Users/dawid/Downloads/paho.mqtt.c-master/paho.mqtt.c-master/cmake-build-debug/src

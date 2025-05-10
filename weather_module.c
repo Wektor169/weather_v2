@@ -7,6 +7,10 @@
     char command[512];  // Bufor na komendę
     sprintf(command, "curl -s \"https://api.openweathermap.org/data/2.5/weather?lat=%lf&lon=%lf&appid=0dcaf6e2a4e68809437b92f4e103a2c9\" > \"%s\"", latitiute, longitiute, filename);
     system(command);
+     int result_command = system(command);
+     if (result_command != 0) {
+         fprintf(stderr, "Błąd podczas wykonywania komendy curl. Kod: %d\n", result_command);
+     }
 };
 
 void trim(char *str) { // Funkcja do usuwania białych znaków z początku i końca łańcucha
@@ -31,7 +35,8 @@ char* get_field_value(const char* json_str, const char* field_name) { // Funkcja
     snprintf(pattern, sizeof(pattern), "\"%s\":", field_name);
     char* start_pos = strstr(json_str, pattern); // Znajdujemy pozycję, w której zaczyna się pole
     if (start_pos == NULL) {
-        return NULL;  // Nie znaleziono pola
+        fprintf(stderr, "Nie znaleziono pola: %s\n", field_name);
+        return NULL;
     }
     start_pos += strlen(pattern); // Znajdujemy początek wartości (po ":" i ewentualnych białych znakach)
     while (*start_pos == ' ' || *start_pos == '\t' || *start_pos == '\n') {
@@ -65,6 +70,10 @@ char* get_field_value(const char* json_str, const char* field_name) { // Funkcja
 
 char** get_data(const char **tab, int size_tab, const char* filename) {
     char **data_tab = (char**)malloc(sizeof(char *) * size_tab);
+    if (!data_tab) {
+        fprintf(stderr, "Błąd alokacji pamięci dla data_tab.\n");
+        return NULL;
+    }
     FILE *file = fopen(filename, "r");
     if (!file) {
         printf("Nie można otworzyć pliku!\n");
@@ -73,8 +82,20 @@ char** get_data(const char **tab, int size_tab, const char* filename) {
     }
     fseek(file, 0, SEEK_END); // przesunięcie wskaźnika na koniec
     long file_size = ftell(file);  // obilczenie dlugosci pliku
+    if (file_size < 0) {
+        fprintf(stderr, "Błąd podczas obliczania rozmiaru pliku.\n");
+        fclose(file);
+        free(data_tab);
+        return NULL;
+    }
     fseek(file, 0, SEEK_SET); //  przywrocenie wskaznika na poczatek
     char* json_str = (char*)malloc(file_size + 1); //rezerwacja pamieci na dane z pliku
+    if (!json_str) {
+        fprintf(stderr, "Błąd alokacji pamięci dla JSON.\n");
+        fclose(file);
+        free(data_tab);
+        return NULL;
+    }
     fread(json_str, 1, file_size, file); // odczytanie danych z pliku do zaalakowanej pamieci
     json_str[file_size] = '\0';  // Zakończenie łańcucha znakowego
     for (int i = 0; i < size_tab; i++) {
@@ -82,6 +103,9 @@ char** get_data(const char **tab, int size_tab, const char* filename) {
         if (field) {
             data_tab[i] = strdup(field);
             free(field);
+        } else {
+            fprintf(stderr, "Nie udało się pobrać wartości dla pola: %s\n", tab[i]);
+            data_tab[i] = NULL; // zachowujemy spójność
         }
     }
     fclose(file); // Zamknij plik
