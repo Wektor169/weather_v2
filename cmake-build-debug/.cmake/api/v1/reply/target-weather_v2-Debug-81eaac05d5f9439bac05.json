@@ -30,7 +30,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 15,
+				"line" : 17,
 				"parent" : 0
 			},
 			{
@@ -48,13 +48,13 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 25,
+				"line" : 27,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 26,
+				"line" : 28,
 				"parent" : 0
 			},
 			{
@@ -67,6 +67,18 @@
 				"command" : 3,
 				"file" : 0,
 				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 13,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 14,
 				"parent" : 0
 			}
 		]
@@ -89,6 +101,14 @@
 				{
 					"backtrace" : 7,
 					"path" : "C:/Users/dawid/Downloads/paho.mqtt.c-master/paho.mqtt.c-master/src"
+				},
+				{
+					"backtrace" : 8,
+					"path" : "C:/Users/dawid/CLionProjects/weather_v2/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Users/dawid/CLionProjects/weather_v2/src"
 				}
 			],
 			"language" : "C",
@@ -189,34 +209,34 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "weather_module.c",
+			"path" : "src/weather_module.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "weather_module.h",
+			"path" : "include/weather_module.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "MQTT_module.h",
+			"path" : "include/MQTT_module.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "MQTT_module.c",
+			"path" : "src/MQTT_module.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "time_synchronization.c",
+			"path" : "src/time_synchronization.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "time_synchronization.h",
+			"path" : "include/time_synchronization.h",
 			"sourceGroupIndex" : 1
 		}
 	],

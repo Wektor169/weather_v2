@@ -10,15 +10,17 @@ link_directories("C:/Users/dawid/CLionProjects/weather_v2/curl/lib")
 include_directories("C:/Users/dawid/Downloads/paho.mqtt.c-master/paho.mqtt.c-master/src")
 link_directories("C:/Users/dawid/Downloads/paho.mqtt.c-master/paho.mqtt.c-master/cmake-build-debug/src")
 
+include_directories(include)
+include_directories(src)
 
 # Tworzenie pliku wykonywalnego
 add_executable(weather_v2 main.c
-        weather_module.c
-        weather_module.h
-        MQTT_module.h
-        MQTT_module.c
-        time_synchronization.c
-        time_synchronization.h
+        src/weather_module.c
+        include/weather_module.h
+        include/MQTT_module.h
+        src/MQTT_module.c
+        src/time_synchronization.c
+        include/time_synchronization.h
 )
 
 # Podłączanie biblioteki curl
