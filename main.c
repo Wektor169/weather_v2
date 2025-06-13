@@ -24,10 +24,10 @@ void *fetch_weather_data(void *arg) {
     char *final_string = args->final_string;
     strcpy(final_string, "{");
     while ((dane[woj_id].miasta[num_miast] != NULL) && (num_miast < 5)) {
-        get_weather(dane[woj_id].lat[num_miast], dane[woj_id].lon[num_miast], dane[woj_id].nazwa_wojewodztwa + 6);
+        get_weather(dane[woj_id].lat[num_miast], dane[woj_id].lon[num_miast], dane[woj_id].nazwa_wojewodztwa + 8);
         const char *name_tab[] = {"temp", "speed", "all"};
         const char *name_tab_pl[] = {"Temperatura", "Predkosc wiatru", "Zachmurzenie"};
-        const char **result = get_data(name_tab, 3, dane[woj_id].nazwa_wojewodztwa + 6);
+        const char **result = get_data(name_tab, 3, dane[woj_id].nazwa_wojewodztwa + 8);
         if (result == NULL) {
             fprintf(stderr, "Błąd: get_data zwróciło NULL dla województwa %s\n", dane[woj_id].nazwa_wojewodztwa);
             continue;
@@ -90,8 +90,9 @@ int main() {
 
     int liczba_iteracji = 0;
 
-    while (liczba_iteracji<10){
-        sleep_until_next_min_interval(1);
+    while (1){
+    //while (liczba_iteracji<1){
+        sleep_until_next_min_interval(5);
         print_date();
         for (int i = 0; i < NUM_THREADS; i++) {
             args[i].woj_id = i;
@@ -127,10 +128,10 @@ int main() {
             pthread_join(send_threads[i], NULL);
         }
         printf(" The program successfully received and sent.\n");
-        liczba_iteracji = liczba_iteracji + 1;
+        //liczba_iteracji = liczba_iteracji + 1;
     }
 
-    // Niszczenie semaforów
+
     sem_destroy(&semaphore);
     for (int i = 0; i < NUM_THREADS; i++) {
         sem_destroy(&send_semaphore[i]);

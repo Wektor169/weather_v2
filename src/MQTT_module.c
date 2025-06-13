@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <MQTTClient.h>
+#include <stdbool.h>
 #include <string.h>
 
 void sendMqttMessage(const char *message, const char *topic) {
@@ -33,7 +34,7 @@ void sendMqttMessage(const char *message, const char *topic) {
     mess.payload = (void*)message;
     mess.payloadlen = (int)strlen(message);
     mess.qos = QOS;
-    mess.retained = 0;
+    mess.retained = true;
 
     MQTTClient_publishMessage(client, topic, &mess, &token);
     rc = MQTTClient_waitForCompletion(client, token, TIMEOUT);
